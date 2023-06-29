@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Prints 'Best School' in stdout 10 times using a while loop
+
+pos=0
+
+while [ $pos -lt 10 ]
+do
+  echo "Best School"
+  ((pos++))
+done
