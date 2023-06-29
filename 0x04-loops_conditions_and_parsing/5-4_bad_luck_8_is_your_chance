@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Loops from 1 to 10 and prints:
+# "Best School" for all other iterations
+# "bad luck" for the 4th iteration
+# "good luck" for the 8th iteration
+
+poll=0
+
+while [ $poll -lt 10 ]
+do
+  if [ $poll -eq 3 ]
+  then
+    echo "bad luck"
+  elif [ $poll -eq 7 ]
+  then
+    echo "good luck"
+  else
+    echo "Best School"
+  fi
+  (( poll++ ))
+done
