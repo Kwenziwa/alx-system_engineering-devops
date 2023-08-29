@@ -1,9 +1,18 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Web servers are the piece of software generating and serving HTML pages, let’s install one!
-sudo apt-get update -y
+sudo apt update
+sudo apt install nginx -y
 
-sudo apt-get install nginx -y
+# Configure nginx to listen on port 80 and serve "Hello World!" at the root
+echo "server {
+    listen 80;
+    server_name localhost;
 
-echo 'Hello World!' > /var/www/html/index.html
+    location / {
+        echo \"Hello World!\";
+    }
+}" | sudo tee /etc/nginx/sites-available/default > /dev/null
 
-service nginx restart
+# Restart nginx
+sudo service nginx restart
+
