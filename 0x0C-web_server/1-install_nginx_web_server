@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 # Web servers are the piece of software generating and serving HTML pages, let’s install one!
-sudo apt -y update
-sudo apt -y upgrade
-sudo apt -y install nginx
+sudo apt update
+sudo apt install -y nginx
+
 sudo service nginx start
-sudo chown -R "$USER":"$USER" /var/www/html
-sudo chmod -R 755 /var/www
-sudo echo 'Hello World!' | tee /var/www/html/index.nginx-debian.html
+echo "Hello World!" | tee /var/www/html/index.nginx-debian.html
