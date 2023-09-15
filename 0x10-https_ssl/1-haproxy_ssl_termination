@@ -37,7 +37,7 @@ defaults
 
 frontend besthor_front_end
     bind *:80
-    bind *:443 ssl crt /etc/haproxy/certs/www.besthor.tech.pem
+    bind *:443 ssl crt /etc/haproxy/cert/kwenziwa.pem
     http-request redirect scheme https unless { ssl_fc }
     http-request set-header X-Forwarded-Proto https
     default_backend besthor_back_end
@@ -45,8 +45,9 @@ frontend besthor_front_end
 backend besthor_back_end
     balance roundrobin
     
-    server 176572-web-01 54.165.168.252:80 check
-    server 176572-web-02 54.236.45.234:80  check
+    server 288219-web-01 34.205.65.89:80 check
+    server 288219-web-02 100.26.162.105:80 check
+
 
 backend letsencrypt-backend
     server letsencrypt 127.0.0.1:54321
