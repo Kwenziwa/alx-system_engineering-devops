@@ -1,30 +1,42 @@
 #!/usr/bin/python3
-"""Exports data in the JSON format"""
+"""
+A sript that, uses a REST API, for a given employee ID, returns
+information about his/her TODO list progress
+and exports data in the JSON format.
+"""
+
+import json
+import requests
+from sys import argv
+
 
 if __name__ == "__main__":
 
-    import json
-    import requests
-    import sys
+    sessionReq = requests.Session()
 
-    userId = sys.argv[1]
-    user = requests.get("https://jsonplaceholder.typicode.com/users/{}"
-                        .format(userId))
-    todos = requests.get('https://jsonplaceholder.typicode.com/todos')
-    todos = todos.json()
+    idEmp = argv[1]
+    idURL = 'https://jsonplaceholder.typicode.com/users/{}/todos'.format(idEmp)
+    nameURL = 'https://jsonplaceholder.typicode.com/users/{}'.format(idEmp)
 
-    todoUser = {}
-    taskList = []
+    employee = sessionReq.get(idURL)
+    employeeName = sessionReq.get(nameURL)
 
-    for task in todos:
-        if task.get('userId') == int(userId):
-            taskDict = {"task": task.get('title'),
-                        "completed": task.get('completed'),
-                        "username": user.json().get('username')}
-            taskList.append(taskDict)
-    todoUser[userId] = taskList
+    json_req = employee.json()
+    usr = employeeName.json()['username']
 
-    filename = userId + '.json'
-    with open(filename, mode='w') as f:
-        json.dump(todoUser, f)
-      
+    totalTasks = []
+    updateUser = {}
+
+    for all_Emp in json_req:
+        totalTasks.append(
+            {
+                "task": all_Emp.get('title'),
+                "completed": all_Emp.get('completed'),
+                "username": usr,
+            })
+    updateUser[idEmp] = totalTasks
+
+    file_Json = idEmp + ".json"
+    with open(file_Json, 'w') as f:
+        json.dump(updateUser, f)
+        
