@@ -11,7 +11,7 @@ server {
 	}
 
 	index index.html index.htm index.nginx-debian.html;
-	rewrite ^/redirect_me https://github.com/kwenzia permanent;
+	rewrite ^/redirect_me https://github.com/besthor permanent;
 
 	error_page 404 /404.html;
 
@@ -24,6 +24,16 @@ server {
 		include proxy_params;
                 proxy_pass http://0.0.0.0:5000/airbnb-onepage/;
         }
+
+	location /airbnb-dynamic/number_odd_or_even/ {
+		include proxy_params;
+		proxy_pass http://0.0.0.0:5001/number_odd_or_even/;
+	}
+
+	location /api/ {
+		include proxy_params;
+		proxy_pass http://0.0.0.0:5002/api/;
+	}
 
 	location / {
 		try_files $uri $uri/ =404;
